@@ -4,6 +4,7 @@ import "./App.css";
 function App(): React.JSX.Element {
     return (
         <div className="App">
+            <h1>This is header text</h1>
             <header className="App-header">
                 UD CISC275 with React Hooks and TypeScript by Ryan ODonnell
             </header>
