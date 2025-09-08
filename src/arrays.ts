@@ -5,7 +5,12 @@
  * the number twice.
  */
 export function bookEndList(numbers: number[]): number[] {
-    return numbers;
+    if (numbers.length == 0) {
+        return [];
+    } else if (numbers.length == 1) {
+        return [numbers[0], numbers[0]];
+    }
+    return [numbers[0], numbers[numbers.length - 1]];
 }
 
 /**
@@ -13,7 +18,8 @@ export function bookEndList(numbers: number[]): number[] {
  * number has been tripled (multiplied by 3).
  */
 export function tripleNumbers(numbers: number[]): number[] {
-    return numbers;
+    const newNumbers = numbers.map((num: number): number => num * 3);
+    return newNumbers;
 }
 
 /**
@@ -21,7 +27,10 @@ export function tripleNumbers(numbers: number[]): number[] {
  * the number cannot be parsed as an integer, convert it to 0 instead.
  */
 export function stringsToIntegers(numbers: string[]): number[] {
-    return [];
+    const isNumber = (num: string): number =>
+        !Number.isNaN(Number(num)) ? Number(num) : 0;
+    const newNums = numbers.map(isNumber);
+    return newNums;
 }
 
 /**
@@ -32,7 +41,10 @@ export function stringsToIntegers(numbers: string[]): number[] {
  */
 // Remember, you can write functions as lambdas too! They work exactly the same.
 export const removeDollars = (amounts: string[]): number[] => {
-    return [];
+    const removedDollars = amounts.map((amount: string): string =>
+        amount[0] == "$" ? amount.slice(1) : amount,
+    );
+    return stringsToIntegers(removedDollars);
 };
 
 /**
@@ -41,7 +53,16 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    const endsInQuestionMark = messages.filter(
+        (message: string): boolean => message[message.length - 1] != "?",
+    );
+    const endsInExclamationMark = endsInQuestionMark.map(
+        (message: string): string =>
+            message[message.length - 1] == "!" ?
+                message.toUpperCase()
+            :   message,
+    );
+    return endsInExclamationMark;
 };
 
 /**
@@ -49,7 +70,10 @@ export const shoutIfExclaiming = (messages: string[]): string[] => {
  * 4 letters long.
  */
 export function countShortWords(words: string[]): number {
-    return 0;
+    const lessThanFourWords = words.filter(
+        (word: string): boolean => word.length < 4,
+    );
+    return lessThanFourWords.length;
 }
 
 /**
@@ -58,7 +82,13 @@ export function countShortWords(words: string[]): number {
  * then return true.
  */
 export function allRGB(colors: string[]): boolean {
-    return false;
+    const allRGB = colors.every(
+        (color: string): boolean =>
+            color.toLowerCase() == "red" ||
+            color.toLowerCase() == "green" ||
+            color.toLowerCase() == "blue",
+    );
+    return allRGB;
 }
 
 /**
@@ -69,7 +99,15 @@ export function allRGB(colors: string[]): boolean {
  * And the array [] would become "0=0".
  */
 export function makeMath(addends: number[]): string {
-    return "";
+    if (addends.length == 0) {
+        return "0=0";
+    }
+    const sum = addends.reduce(
+        (currTotal: number, num: number) => currTotal + num,
+        0,
+    );
+    const equation = addends.join("+");
+    return sum + "=" + equation;
 }
 
 /**
@@ -82,5 +120,26 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+    const firstNegative = values.findIndex(
+        (value: number): boolean => value < 0,
+    );
+    let tempValues: number[] = [...values];
+    if (firstNegative != -1) {
+        tempValues.splice(firstNegative);
+    }
+    const sum = tempValues.reduce(
+        (currTotal: number, num: number) => currTotal + num,
+        0,
+    );
+    if (firstNegative != -1) {
+        tempValues.push(values[firstNegative]);
+    }
+    tempValues.push(sum);
+    if (firstNegative != -1) {
+        const copyValues = [...values];
+        copyValues.splice(0, firstNegative + 1);
+        const combinedValues = [...tempValues, ...copyValues];
+        return combinedValues;
+    }
+    return tempValues;
 }
