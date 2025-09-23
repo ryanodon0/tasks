@@ -1,7 +1,11 @@
 import React from "react";
 import "./App.css";
-import "./me_when_cat.png";
-import { Button } from "react-bootstrap";
+import { ChangeType } from "./components/ChangeType";
+import { RevealAnswer } from "./components/RevealAnswer";
+import { StartAttempt } from "./components/StartAttempt";
+import { TwoDice } from "./components/TwoDice";
+import { CycleHoliday } from "./components/CycleHoliday";
+import { Counter } from "./components/Counter";
 
 function App(): React.JSX.Element {
     return (
@@ -10,23 +14,18 @@ function App(): React.JSX.Element {
             <header className="App-header" style={{ backgroundColor: "red" }}>
                 UD CISC275 with React Hooks and TypeScript by Ryan ODonnell
             </header>
-            <p>
-                Edit <code>src/App.tsx</code> and save. This page will
-                automatically reload. Hello World
-            </p>
-            <img src="{me_when_cat.png}" alt="its a car" />
-            <ul>
-                <li>car</li>
-                <li>god</li>
-                <li>neither</li>
-            </ul>
-            <Button
-                onClick={() => {
-                    console.log("Hello World!");
-                }}
-            >
-                Log Hello World
-            </Button>
+            <hr></hr>
+            <Counter></Counter>
+            <hr />
+            <RevealAnswer></RevealAnswer>
+            <hr />
+            <StartAttempt></StartAttempt>
+            <hr />
+            <TwoDice></TwoDice>
+            <hr />
+            <ChangeType></ChangeType>
+            <hr />
+            <CycleHoliday></CycleHoliday>
         </div>
     );
 }
